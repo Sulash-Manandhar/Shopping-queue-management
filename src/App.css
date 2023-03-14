@@ -9,6 +9,17 @@ body {
   gap: 2rem;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+}
+
 .counter-container {
   display: flex;
   justify-content: center;

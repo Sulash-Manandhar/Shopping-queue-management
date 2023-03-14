@@ -8,13 +8,13 @@ const CheckoutForm: React.FC<Props> = (props) => {
   const { addQueue } = props;
   const [numberOfItem, setNumberOfItem] = useState<number>(1);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     addQueue(numberOfItem);
-    setNumberOfItem(1);
   };
 
   return (
-    <div className="form">
+    <form className="form" onSubmit={handleSubmit}>
       <div className="input-wrapper">
         <label htmlFor="cart-item">Number of item:</label>
         <input
@@ -28,11 +28,9 @@ const CheckoutForm: React.FC<Props> = (props) => {
         />
       </div>
       <div>
-        <button type="button" onClick={handleSubmit}>
-          Checkout
-        </button>
+        <button type="submit">Checkout</button>
       </div>
-    </div>
+    </form>
   );
 };
 

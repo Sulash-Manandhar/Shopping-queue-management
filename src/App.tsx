@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { MdOutlineMonitor } from "react-icons/md";
 import CheckoutForm from "./components/CheckoutForm";
+import { decreaseInitialItemValue, getTotalSum } from "./utils/functions";
 
 function App() {
   const [counter, setCounter] = useState<number[][]>([
@@ -12,44 +13,20 @@ function App() {
     [2, 1],
   ]);
 
-  function decreaseItem() {
-    const newCounter: number[][] = [...counter];
-
-    newCounter.forEach((item) => {
-      if (item.length === 0) {
-        return;
-      }
-      if (item[0] < 1) {
-        return item.shift();
-      }
-      return (item[0] = item[0] - 1);
-    });
-    setCounter(newCounter);
-  }
-
   useEffect(() => {
     const timer = setInterval(() => {
-      decreaseItem();
-      console.count("rendering");
+      setCounter(decreaseInitialItemValue(counter));
     }, 5000);
 
     return () => clearInterval(timer);
   }, []);
 
   function addQueue(numberOfItem: number): void {
-    const lowestArray = counter.reduce((acc, i) => {
-      const totalCurrentValue = i.reduce((totalSum, j) => {
-        return j + totalSum;
-      }, i[0]);
-
-      const totalSmallestValue = acc.reduce((totalSum, j) => {
-        return j + totalSum;
-      }, acc[0]);
-
-      if (totalCurrentValue < totalSmallestValue) {
-        return i;
+    const lowestArray = counter.reduce((lowestValue, currentValue) => {
+      if (getTotalSum(currentValue) < getTotalSum(lowestValue)) {
+        return currentValue;
       }
-      return acc;
+      return lowestValue;
     }, counter[0]);
 
     let newCounter: number[][] = [...counter];
@@ -64,7 +41,7 @@ function App() {
 
   return (
     <main>
-      <div>
+      <div className="heading">
         <h1>Shopping Queue Management</h1>
       </div>
       <div className="App">
