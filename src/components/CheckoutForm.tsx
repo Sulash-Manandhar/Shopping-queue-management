@@ -28,7 +28,7 @@ const CheckoutForm: React.FC<Props> = (props) => {
         />
       </div>
       <div>
-        <button type="submit">Checkout</button>
+        <button type="submit">Join Queue</button>
       </div>
     </form>
   );

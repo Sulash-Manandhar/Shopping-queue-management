@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { MdOutlineMonitor } from "react-icons/md";
 import CheckoutForm from "./components/CheckoutForm";
-import { decreaseInitialItemValue, getTotalSum } from "./utils/functions";
+import { decreaseInitialItemValue, getTotalSum } from "./utils";
 
 function App() {
   const [counter, setCounter] = useState<number[][]>([
@@ -20,6 +20,8 @@ function App() {
 
     return () => clearInterval(timer);
   }, []);
+
+
 
   function addQueue(numberOfItem: number): void {
     const lowestArray = counter.reduce((lowestValue, currentValue) => {
